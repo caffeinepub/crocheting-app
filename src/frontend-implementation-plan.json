@@ -1,56 +1,56 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix Admin navigation link visibility after Internet Identity login",
+  "title": "Fix Navigation component to properly detect authentication state changes and display Admin link",
   "requirements": [
     {
-      "id": "REQ-27",
-      "summary": "Add debug console logging to Navigation component for identity and admin state tracking",
+      "id": "REQ-31",
+      "summary": "Update the Navigation component to add useEffect hooks that explicitly watch for changes in the identity state from useInternetIdentity and trigger the useIsCallerAdmin query to refetch when authentication status changes from logged out to logged in",
       "acceptanceCriteria": [
-        "Console logs display current identity state in Navigation component",
-        "Console logs display isAdmin query result and loading state",
-        "Console logs trigger on component mount and when identity changes",
-        "Logs help identify whether the issue is with the query not running, query returning wrong value, or component not re-rendering"
+        "Navigation component includes a useEffect that depends on identity state from useInternetIdentity",
+        "When identity changes from null/anonymous to authenticated, the useIsCallerAdmin query is triggered to refetch",
+        "The Admin link appears in the navigation bar immediately after successful Internet Identity login for admin users",
+        "Console logs confirm the identity state change is detected and the admin check runs"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Add console.log statements to track identity state from useInternetIdentity, isAdmin query status (loading, data, error), and component re-render triggers. Include logs in useEffect hooks that monitor identity changes and in the render path to show when the component evaluates the admin link visibility condition."
+          "description": "Add a useEffect hook that watches the identity state from useInternetIdentity. When identity transitions from null/anonymous to authenticated, log the state change to console and trigger the useIsCallerAdmin query refetch. Include dependency array with identity to ensure the effect runs on authentication status changes."
         }
       ]
     },
     {
-      "id": "REQ-28",
-      "summary": "Ensure useIsCallerAdmin query executes immediately after authentication state changes",
+      "id": "REQ-32",
+      "summary": "Ensure the useIsCallerAdmin query in the Navigation component is properly enabled and configured to run immediately when the identity state becomes authenticated, using the enabled option based on identity presence",
       "acceptanceCriteria": [
-        "useIsCallerAdmin query executes automatically when identity state updates",
-        "Query is not disabled or blocked by stale actor instance",
-        "Navigation component has access to updated actor from useActor hook",
-        "Query refetches when actor instance changes"
+        "useIsCallerAdmin query has an enabled option that returns true only when identity is authenticated",
+        "Query automatically runs when enabled state changes from false to true",
+        "Query does not attempt to run when user is not authenticated",
+        "Admin link visibility updates immediately when query returns successful result"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Verify the useIsCallerAdmin hook is properly enabled based on actor availability and authentication state. Add explicit dependencies on identity state to trigger query refetch when authentication changes from anonymous to authenticated. Ensure the query is not disabled during the authentication transition."
+          "description": "Update the useIsCallerAdmin query configuration to include an enabled option that checks for authenticated identity presence. Ensure the query only runs when the user has a valid identity and the actor is available. Configure the query to automatically execute when the enabled state transitions from false to true."
         }
       ]
     },
     {
-      "id": "REQ-30",
-      "summary": "Add explicit identity dependency to force Navigation re-render on authentication change",
+      "id": "REQ-33",
+      "summary": "Add refetch mechanism in Navigation component that manually triggers the useIsCallerAdmin query refetch when the actor instance changes or identity updates, ensuring the admin status check runs with the newly authenticated identity",
       "acceptanceCriteria": [
-        "Navigation component uses identity from useInternetIdentity hook as a dependency",
-        "Component re-renders when identity changes from null to defined",
-        "isAdmin check runs with fresh data after authentication",
-        "Admin link appears in navigation menu after successful login"
+        "Navigation component accesses the refetch function from the useIsCallerAdmin query",
+        "Component triggers refetch when identity transitions from unauthenticated to authenticated",
+        "Admin link appears in navigation within 1-2 seconds after successful login",
+        "No race conditions occur where the query runs with stale or anonymous identity"
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Add useEffect hook with identity as a dependency to explicitly track authentication state changes. When identity transitions from null/undefined to a valid identity object, trigger a re-evaluation of the isAdmin state. Ensure the admin navigation link visibility condition properly accounts for both the isAuthenticated state and the isAdmin query result, re-rendering when either value changes."
+          "description": "Extract the refetch function from the useIsCallerAdmin query hook. In the useEffect that watches identity changes, call refetch() when the identity becomes authenticated to immediately trigger the admin status check with the new identity. Ensure proper sequencing to avoid race conditions with actor initialization."
         }
       ]
     }

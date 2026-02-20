@@ -1,12 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the Admin navigation link not appearing after Internet Identity login by adding debugging and ensuring proper state synchronization.
+**Goal:** Fix the Navigation component to properly detect authentication state changes and immediately display the Admin link for admin users after login.
 
 **Planned changes:**
-- Add console logging in Navigation component to track isAdmin state, identity state, and re-render behavior
-- Ensure useIsCallerAdmin query runs immediately after authentication state changes
-- Verify backend isCallerAdmin method returns correct values and add logging for caller principal
-- Add explicit dependency on identity state in Navigation component to force re-render on authentication changes
+- Add useEffect hooks in Navigation component to watch for identity state changes from useInternetIdentity
+- Configure useIsCallerAdmin query with enabled option based on authenticated identity presence
+- Implement refetch mechanism to trigger admin status check when identity transitions from unauthenticated to authenticated
+- Ensure Admin link appears within 1-2 seconds after successful Internet Identity login
 
-**User-visible outcome:** After logging in with Internet Identity, the Admin link appears in the navigation menu without requiring a page refresh.
+**User-visible outcome:** After logging in with Internet Identity, admin users will immediately see the Admin link appear in the navigation bar without needing to refresh the page or navigate away and back.

@@ -1,95 +1,78 @@
 {
   "kind": "build_request",
-  "title": "Fix Admin navigation link visibility after Internet Identity login",
-  "projectName": "Crochet Studio",
+  "title": "Fix Navigation component to properly detect authentication state changes and display Admin link",
+  "projectName": "Crochet Craft Hub",
   "priority": "high",
   "requirements": [
     {
-      "id": "REQ-27",
-      "text": "Add console.log statements in the Navigation component to debug the isAdmin state, identity state, and re-render behavior when authentication changes",
+      "id": "REQ-31",
+      "text": "Update the Navigation component at frontend/src/components/Navigation.tsx to add useEffect hooks that explicitly watch for changes in the identity state from useInternetIdentity and trigger the useIsCallerAdmin query to refetch when authentication status changes from logged out to logged in",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-no"
+          "msg-5"
         ],
         "quotes": [
-          "No"
+          "Go ahead"
         ]
       },
       "acceptanceCriteria": [
-        "Console logs display current identity state in Navigation component",
-        "Console logs display isAdmin query result and loading state",
-        "Console logs trigger on component mount and when identity changes",
-        "Logs help identify whether the issue is with the query not running, query returning wrong value, or component not re-rendering"
+        "Navigation component includes a useEffect that depends on identity state from useInternetIdentity",
+        "When identity changes from null/anonymous to authenticated, the useIsCallerAdmin query is triggered to refetch",
+        "The Admin link appears in the navigation bar immediately after successful Internet Identity login for admin users",
+        "Console logs confirm the identity state change is detected and the admin check runs"
       ]
     },
     {
-      "id": "REQ-28",
-      "text": "Ensure the useIsCallerAdmin query in Navigation component is enabled and runs immediately after authentication state changes from anonymous to authenticated",
+      "id": "REQ-32",
+      "text": "Ensure the useIsCallerAdmin query in the Navigation component is properly enabled and configured to run immediately when the identity state becomes authenticated, using the enabled option based on identity presence",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-no"
+          "msg-5"
         ],
         "quotes": [
-          "No"
+          "Go ahead"
         ]
       },
       "acceptanceCriteria": [
-        "useIsCallerAdmin query executes automatically when identity state updates",
-        "Query is not disabled or blocked by stale actor instance",
-        "Navigation component has access to updated actor from useActor hook",
-        "Query refetches when actor instance changes"
+        "useIsCallerAdmin query has an enabled option that returns true only when identity is authenticated",
+        "Query automatically runs when enabled state changes from false to true",
+        "Query does not attempt to run when user is not authenticated",
+        "Admin link visibility updates immediately when query returns successful result"
       ]
     },
     {
-      "id": "REQ-29",
-      "text": "Verify that the backend isCallerAdmin method in main.mo correctly returns true for the authenticated principal and that the method is being called with the correct identity",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-user-no"
-        ],
-        "quotes": [
-          "No"
-        ]
-      },
-      "acceptanceCriteria": [
-        "isCallerAdmin method logs the caller principal for debugging",
-        "Method returns true when called by an authenticated user",
-        "Admin principals list includes the test user's principal",
-        "Method response is correctly serialized and returned to frontend"
-      ]
-    },
-    {
-      "id": "REQ-30",
-      "text": "Add explicit dependency on identity state in the Navigation component to force re-render when authentication status changes from logged out to logged in",
+      "id": "REQ-33",
+      "text": "Add refetch mechanism in Navigation component that manually triggers the useIsCallerAdmin query refetch when the actor instance changes or identity updates, ensuring the admin status check runs with the newly authenticated identity",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-no"
+          "msg-5"
         ],
         "quotes": [
-          "No"
+          "Go ahead"
         ]
       },
       "acceptanceCriteria": [
-        "Navigation component uses identity from useInternetIdentity hook as a dependency",
-        "Component re-renders when identity changes from null to defined",
-        "isAdmin check runs with fresh data after authentication",
-        "Admin link appears in navigation menu after successful login"
+        "Navigation component accesses the refetch function from the useIsCallerAdmin query",
+        "Component triggers refetch when identity transitions from unauthenticated to authenticated",
+        "Admin link appears in navigation within 1-2 seconds after successful login",
+        "No race conditions occur where the query runs with stale or anonymous identity"
       ]
     }
   ],
   "constraints": [
-    "Do not modify the single-actor architecture in backend/main.mo",
-    "Do not edit immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+    "Do not modify the useInternetIdentity hook implementation at frontend/src/hooks/useInternetIdentity.ts",
+    "Do not modify the useActor hook implementation at frontend/src/hooks/useActor.ts",
+    "Maintain the existing Navigation component structure and styling",
+    "Preserve all existing navigation links and mobile menu functionality"
   ],
   "nonGoals": [
-    "Adding new admin features beyond fixing the navigation link visibility",
-    "Changing the authentication mechanism from Internet Identity",
-    "Modifying the UI design or styling of the navigation component",
-    "Adding new routes or pages"
+    "Changing the backend isCallerAdmin implementation",
+    "Modifying the authentication flow or Internet Identity integration",
+    "Altering the admin page access control logic",
+    "Adding new navigation links or UI elements beyond the existing Admin link"
   ],
   "imageRequirements": {
     "required": [],

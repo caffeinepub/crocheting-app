@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-console-log-statements-in-the-navigation-component-to-debug-the-isadmin-state-identity-state-and-re-render-behavior-when-authentication-changes",
-      "featureTitle": "Add console.log statements in the Navigation component to debug the isAdmin state, identity state, and re-render behavior when authentication changes",
+      "featureId": "feature-update-the-navigation-component-at-frontend-src-components-navigation-tsx-to-add-useeffect-hooks-that-explicitly-watch-for-changes-in-the-identity-state-from-useinternetidentity-and-trigger-the-useiscalleradmin-query-to-refetch-when-authentication-status-changes-from-logged-out-to-logged-in",
+      "featureTitle": "Update the Navigation component at frontend/src/components/Navigation.tsx to add useEffect hooks that explicitly watch for changes in the identity state from useInternetIdentity and trigger the useIsCallerAdmin query to refetch when authentication status changes from logged out to logged in",
       "files": [
         "frontend/src/components/Navigation.tsx"
       ],
@@ -17,13 +17,13 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-27"
+        "REQ-31"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-ensure-the-useiscalleradmin-query-in-navigation-component-is-enabled-and-runs-immediately-after-authentication-state-changes-from-anonymous-to-authenticated",
-      "featureTitle": "Ensure the useIsCallerAdmin query in Navigation component is enabled and runs immediately after authentication state changes from anonymous to authenticated",
+      "featureId": "feature-ensure-the-useiscalleradmin-query-in-the-navigation-component-is-properly-enabled-and-configured-to-run-immediately-when-the-identity-state-becomes-authenticated-using-the-enabled-option-based-on-identity-presence",
+      "featureTitle": "Ensure the useIsCallerAdmin query in the Navigation component is properly enabled and configured to run immediately when the identity state becomes authenticated, using the enabled option based on identity presence",
       "files": [
         "frontend/src/components/Navigation.tsx"
       ],
@@ -37,13 +37,13 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-28"
+        "REQ-32"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-explicit-dependency-on-identity-state-in-the-navigation-component-to-force-re-render-when-authentication-status-changes-from-logged-out-to-logged-in",
-      "featureTitle": "Add explicit dependency on identity state in the Navigation component to force re-render when authentication status changes from logged out to logged in",
+      "featureId": "feature-add-refetch-mechanism-in-navigation-component-that-manually-triggers-the-useiscalleradmin-query-refetch-when-the-actor-instance-changes-or-identity-updates-ensuring-the-admin-status-check-runs-with-the-newly-authenticated-identity",
+      "featureTitle": "Add refetch mechanism in Navigation component that manually triggers the useIsCallerAdmin query refetch when the actor instance changes or identity updates, ensuring the admin status check runs with the newly authenticated identity",
       "files": [
         "frontend/src/components/Navigation.tsx"
       ],
@@ -57,7 +57,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-30"
+        "REQ-33"
       ],
       "confidence": "high"
     }

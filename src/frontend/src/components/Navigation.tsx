@@ -17,7 +17,7 @@ export default function Navigation() {
   const disabled = loginStatus === 'logging-in';
 
   const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
-  const { data: isAdmin, isLoading: isAdminLoading, error: isAdminError, isFetched: isAdminFetched } = useIsCallerAdmin();
+  const { data: isAdmin, isLoading: isAdminLoading, error: isAdminError, isFetched: isAdminFetched, refetch: refetchAdmin } = useIsCallerAdmin();
 
   const showProfileSetup = isAuthenticated && !profileLoading && isFetched && userProfile === null;
 
@@ -40,13 +40,16 @@ export default function Navigation() {
     });
   }, [isAdmin, isAdminLoading, isAdminFetched, isAdminError, isAuthenticated]);
 
-  // Force re-evaluation when identity changes
+  // Trigger admin check when identity becomes authenticated
   useEffect(() => {
-    if (identity) {
-      console.log('[Navigation] Identity changed, invalidating admin query');
-      queryClient.invalidateQueries({ queryKey: ['isAdmin'] });
+    if (identity && isAuthenticated) {
+      console.log('[Navigation] Identity authenticated, triggering admin refetch');
+      // Small delay to ensure actor is fully initialized
+      setTimeout(() => {
+        refetchAdmin();
+      }, 100);
     }
-  }, [identity, queryClient]);
+  }, [identity, isAuthenticated, refetchAdmin]);
 
   const handleAuth = async () => {
     if (isAuthenticated) {

@@ -1,18 +1,18 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T13:18:36.035Z",
+  "generatedAt": "2026-02-20T13:26:12.040Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
+    "total": 3,
     "implemented": 3,
     "items": [
       {
-        "id": "REQ-27",
-        "summary": "Add console.log statements in the Navigation component to debug the isAdmin state, identity state, and re-render behavior when authentication changes",
+        "id": "REQ-31",
+        "summary": "Update the Navigation component at frontend/src/components/Navigation.tsx to add useEffect hooks that explicitly watch for changes in the identity state from useInternetIdentity and trigger the useIsCallerAdmin query to refetch when authentication status changes from logged out to logged in",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/Navigation.tsx"
@@ -22,8 +22,8 @@
         ]
       },
       {
-        "id": "REQ-28",
-        "summary": "Ensure the useIsCallerAdmin query in Navigation component is enabled and runs immediately after authentication state changes from anonymous to authenticated",
+        "id": "REQ-32",
+        "summary": "Ensure the useIsCallerAdmin query in the Navigation component is properly enabled and configured to run immediately when the identity state becomes authenticated, using the enabled option based on identity presence",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/Navigation.tsx"
@@ -33,15 +33,8 @@
         ]
       },
       {
-        "id": "REQ-29",
-        "summary": "Verify that the backend isCallerAdmin method in main.mo correctly returns true for the authenticated principal and that the method is being called with the correct identity",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-30",
-        "summary": "Add explicit dependency on identity state in the Navigation component to force re-render when authentication status changes from logged out to logged in",
+        "id": "REQ-33",
+        "summary": "Add refetch mechanism in Navigation component that manually triggers the useIsCallerAdmin query refetch when the actor instance changes or identity updates, ensuring the admin status check runs with the newly authenticated identity",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/Navigation.tsx"
@@ -58,7 +51,6 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/components/Navigation.tsx",
-    "frontend/src/hooks/useQueries.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

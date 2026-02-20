@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
+  "projectStateVersion": 15,
   "summary": "Crocheting app with tutorials, project publishing, progress tracking, materials list, and free access (no payment required). Focus on aesthetic design.",
   "architectural_notes": [
     "No payment system or monetization features required - completely free app",
@@ -224,6 +224,30 @@
       "title": "Add explicit dependency on identity state in the Navigation component to force re-render when authentication status changes from logged out to logged in",
       "reqIds": [
         "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-navigation-component-at-frontend-src-components-navigation-tsx-to-add-useeffect-hooks-that-explicitly-watch-for-changes-in-the-identity-state-from-useinternetidentity-and-trigger-the-useiscalleradmin-query-to-refetch-when-authentication-status-changes-from-logged-out-to-logged-in",
+      "title": "Update the Navigation component at frontend/src/components/Navigation.tsx to add useEffect hooks that explicitly watch for changes in the identity state from useInternetIdentity and trigger the useIsCallerAdmin query to refetch when authentication status changes from logged out to logged in",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-useiscalleradmin-query-in-the-navigation-component-is-properly-enabled-and-configured-to-run-immediately-when-the-identity-state-becomes-authenticated-using-the-enabled-option-based-on-identity-presence",
+      "title": "Ensure the useIsCallerAdmin query in the Navigation component is properly enabled and configured to run immediately when the identity state becomes authenticated, using the enabled option based on identity presence",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-refetch-mechanism-in-navigation-component-that-manually-triggers-the-useiscalleradmin-query-refetch-when-the-actor-instance-changes-or-identity-updates-ensuring-the-admin-status-check-runs-with-the-newly-authenticated-identity",
+      "title": "Add refetch mechanism in Navigation component that manually triggers the useIsCallerAdmin query refetch when the actor instance changes or identity updates, ensuring the admin status check runs with the newly authenticated identity",
+      "reqIds": [
+        "REQ-33"
       ],
       "version": 1
     }

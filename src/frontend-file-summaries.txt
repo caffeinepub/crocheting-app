@@ -1,7 +1,7 @@
 {
   "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining all routes including admin routes (/admin, /admin/create, /admin/edit/$title) wrapped in a Layout component with ThemeProvider.",
   "frontend/src/components/Layout.tsx": "Main layout wrapper component providing consistent header navigation, footer with social links and attribution, and background styling for all pages.",
-  "frontend/src/components/Navigation.tsx": "Responsive navigation header with authentication controls, mobile menu, conditional links based on login status, admin link visible only to authenticated admin users, and comprehensive debug logging for identity and admin state tracking with explicit identity dependency to force re-renders on authentication changes.",
+  "frontend/src/components/Navigation.tsx": "Responsive navigation header with authentication controls, mobile menu, conditional links based on login status, admin link visible only to authenticated admin users, comprehensive debug logging for identity and admin state tracking, and explicit refetch mechanism that triggers admin status check when identity becomes authenticated with a small delay to ensure actor initialization.",
   "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time user profile creation, collecting name and bio with form validation and mutation handling.",
   "frontend/src/components/HeroSection.tsx": "Hero banner component displaying the generated hero image with gradient overlay and welcome text.",
   "frontend/src/components/TutorialCard.tsx": "Reusable card component for displaying tutorial summaries with step count, materials count, difficulty badge, description preview, and navigation to detail view.",
