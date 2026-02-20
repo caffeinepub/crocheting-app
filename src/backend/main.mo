@@ -66,6 +66,14 @@ actor {
 
   type Project = CrochetProject.Project;
 
+  type Tutorial = {
+    title : Text;
+    description : Text;
+    difficulty : Text;
+    steps : [Text];
+    materials : [Text];
+  };
+
   type Material = {
     name : Text;
     quantity : Nat;
@@ -79,8 +87,170 @@ actor {
   };
 
   let patterns = Map.empty<Text, CrochetPattern>();
-
+  var tutorials = Map.empty<Text, Tutorial>();
   let projects = Map.empty<Principal, List.List<Project>>();
+
+  // Add five beginner crochet tutorials
+  public shared ({ caller }) func initializeDefaultTutorials() : async () {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Only admin can initialize tutorials");
+    };
+    var newTutorials = Map.empty<Text, Tutorial>();
+    newTutorials.add(
+      "Granny Square",
+      {
+        title = "Granny Square";
+        description = "A classic square motif using basic stitches.";
+        difficulty = "Beginner";
+        steps = [
+          "Start with a magic ring.",
+          "Chain 3 (counts as first double crochet).",
+          "Make 2 double crochets into the ring.",
+          "Chain 2 to create a corner.",
+          "Repeat steps 2-4 three times.",
+          "Slip stitch to join and fasten off."
+        ];
+        materials = [
+          "Worsted weight yarn",
+          "5mm crochet hook",
+          "Scissors",
+          "Yarn needle"
+        ];
+      }
+    );
+    newTutorials.add(
+      "Chain Stitch",
+      {
+        title = "Chain Stitch";
+        description = "The most basic crochet stitch, used as a foundation.";
+        difficulty = "Beginner";
+        steps = [
+          "Make a slip knot.",
+          "Hold the yarn and hook.",
+          "Yarn over the hook.",
+          "Pull yarn through the loop on the hook.",
+          "Repeat for desired length."
+        ];
+        materials = [
+          "Any weight yarn",
+          "Appropriate crochet hook"
+        ];
+      }
+    );
+    newTutorials.add(
+      "Single Crochet",
+      {
+        title = "Single Crochet";
+        description = "A dense, sturdy stitch for various projects.";
+        difficulty = "Beginner";
+        steps = [
+          "Make a foundation chain.",
+          "Insert hook into second chain from hook.",
+          "Yarn over and pull through chain.",
+          "Yarn over again and pull through both loops on hook.",
+          "Repeat across the row."
+        ];
+        materials = [
+          "Any weight yarn",
+          "Appropriate crochet hook"
+        ];
+      }
+    );
+    newTutorials.add(
+      "Double Crochet",
+      {
+        title = "Double Crochet";
+        description = "A taller, more open stitch than single crochet.";
+        difficulty = "Beginner";
+        steps = [
+          "Make a foundation chain.",
+          "Yarn over and insert hook into fourth chain from hook.",
+          "Yarn over and pull through chain.",
+          "Yarn over and pull through first two loops.",
+          "Yarn over and pull through remaining two loops.",
+          "Repeat across the row."
+        ];
+        materials = [
+          "Any weight yarn",
+          "Appropriate crochet hook"
+        ];
+      }
+    );
+    newTutorials.add(
+      "Magic Ring",
+      {
+        title = "Magic Ring";
+        description = "A technique to start projects in the round.";
+        difficulty = "Beginner";
+        steps = [
+          "Form a loop with the yarn.",
+          "Insert hook into the loop.",
+          "Yarn over and pull through loop.",
+          "Chain 1 to secure.",
+          "Begin working stitches into the ring.",
+          "Pull tail to tighten center."
+        ];
+        materials = [
+          "Any weight yarn",
+          "Appropriate crochet hook"
+        ];
+      }
+    );
+    tutorials := newTutorials;
+  };
+
+  public query ({ caller }) func getAllTutorials() : async [Tutorial] {
+    Array.fromIter(tutorials.values());
+  };
+
+  public query ({ caller }) func getTutorial(title : Text) : async ?Tutorial {
+    tutorials.get(title);
+  };
+
+  public shared ({ caller }) func createTutorial(title : Text, description : Text, difficulty : Text, steps : [Text], materials : [Text]) : async () {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can create tutorials");
+    };
+    let newTutorial : Tutorial = {
+      title;
+      description;
+      difficulty;
+      steps;
+      materials;
+    };
+    tutorials.add(title, newTutorial);
+  };
+
+  public shared ({ caller }) func updateTutorial(title : Text, description : Text, difficulty : Text, steps : [Text], materials : [Text]) : async () {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can update tutorials");
+    };
+    switch (tutorials.get(title)) {
+      case (null) { Runtime.trap("Tutorial not found") };
+      case (?existingTutorial) {
+        let updatedTutorial : Tutorial = {
+          title = existingTutorial.title;
+          description;
+          difficulty;
+          steps;
+          materials;
+        };
+        tutorials.add(title, updatedTutorial);
+      };
+    };
+  };
+
+  public shared ({ caller }) func deleteTutorial(title : Text) : async () {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admins can delete tutorials");
+    };
+    switch (tutorials.get(title)) {
+      case (null) { Runtime.trap("Tutorial not found") };
+      case (?_) {
+        tutorials.remove(title);
+      };
+    };
+  };
 
   public shared ({ caller }) func addPattern(name : Text, steps : [Text], materials : [Material]) : async () {
     if (not AccessControl.isAdmin(accessControlState, caller)) {
@@ -95,6 +265,10 @@ actor {
   };
 
   public query ({ caller }) func getAllProjects() : async [Project] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can view all projects");
+    };
+
     let allProjects = List.empty<Project>();
 
     for ((_, projectList) in projects.entries()) {
@@ -105,6 +279,10 @@ actor {
   };
 
   public query ({ caller }) func getProjects(userId : Principal) : async [Project] {
+    if (caller != userId and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Can only view your own projects");
+    };
+
     switch (projects.get(userId)) {
       case (null) { [] };
       case (?projectList) { projectList.toArray().sort() };
@@ -167,6 +345,10 @@ actor {
   };
 
   public query ({ caller }) func getProjectMaterials(title : Text) : async [Material] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can view project materials");
+    };
+
     for ((_, projectList) in projects.entries()) {
       for (project in projectList.values()) {
         if (project.title == title) {

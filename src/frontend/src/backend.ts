@@ -89,6 +89,10 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface _CaffeineStorageRefillResult {
+    success?: boolean;
+    topped_up_amount?: bigint;
+}
 export interface Material {
     name: string;
     unit: string;
@@ -120,9 +124,12 @@ export interface UserProfile {
     bio: string;
     name: string;
 }
-export interface _CaffeineStorageRefillResult {
-    success?: boolean;
-    topped_up_amount?: bigint;
+export interface Tutorial {
+    title: string;
+    difficulty: string;
+    description: string;
+    steps: Array<string>;
+    materials: Array<string>;
 }
 export enum UserRole {
     admin = "admin",
@@ -140,19 +147,25 @@ export interface backendInterface {
     addPattern(name: string, steps: Array<string>, materials: Array<Material>): Promise<void>;
     addProject(title: string, description: string, instructions: string, images: Array<ExternalBlob>, materials: Array<Material>): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    createTutorial(title: string, description: string, difficulty: string, steps: Array<string>, materials: Array<string>): Promise<void>;
+    deleteTutorial(title: string): Promise<void>;
     getAllProjects(): Promise<Array<Project>>;
+    getAllTutorials(): Promise<Array<Tutorial>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getPattern(name: string): Promise<CrochetPattern | null>;
     getPatterns(): Promise<Array<CrochetPattern>>;
     getProjectMaterials(title: string): Promise<Array<Material>>;
     getProjects(userId: Principal): Promise<Array<Project>>;
+    getTutorial(title: string): Promise<Tutorial | null>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
+    initializeDefaultTutorials(): Promise<void>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     updateProject(title: string, images: Array<ExternalBlob>, completion_percentage: bigint, time_spent_minutes: bigint): Promise<void>;
+    updateTutorial(title: string, description: string, difficulty: string, steps: Array<string>, materials: Array<string>): Promise<void>;
 }
-import type { CrochetPattern as _CrochetPattern, ExternalBlob as _ExternalBlob, Material as _Material, Project as _Project, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
+import type { CrochetPattern as _CrochetPattern, ExternalBlob as _ExternalBlob, Material as _Material, Project as _Project, Tutorial as _Tutorial, UserProfile as _UserProfile, UserRole as _UserRole, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _caffeineStorageBlobIsLive(arg0: Uint8Array): Promise<boolean> {
@@ -295,6 +308,34 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async createTutorial(arg0: string, arg1: string, arg2: string, arg3: Array<string>, arg4: Array<string>): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.createTutorial(arg0, arg1, arg2, arg3, arg4);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.createTutorial(arg0, arg1, arg2, arg3, arg4);
+            return result;
+        }
+    }
+    async deleteTutorial(arg0: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.deleteTutorial(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.deleteTutorial(arg0);
+            return result;
+        }
+    }
     async getAllProjects(): Promise<Array<Project>> {
         if (this.processError) {
             try {
@@ -307,6 +348,20 @@ export class Backend implements backendInterface {
         } else {
             const result = await this.actor.getAllProjects();
             return from_candid_vec_n12(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getAllTutorials(): Promise<Array<Tutorial>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getAllTutorials();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getAllTutorials();
+            return result;
         }
     }
     async getCallerUserProfile(): Promise<UserProfile | null> {
@@ -393,6 +448,20 @@ export class Backend implements backendInterface {
             return from_candid_vec_n12(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getTutorial(arg0: string): Promise<Tutorial | null> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getTutorial(arg0);
+                return from_candid_opt_n21(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getTutorial(arg0);
+            return from_candid_opt_n21(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getUserProfile(arg0: Principal): Promise<UserProfile | null> {
         if (this.processError) {
             try {
@@ -405,6 +474,20 @@ export class Backend implements backendInterface {
         } else {
             const result = await this.actor.getUserProfile(arg0);
             return from_candid_opt_n17(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async initializeDefaultTutorials(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.initializeDefaultTutorials();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.initializeDefaultTutorials();
+            return result;
         }
     }
     async isCallerAdmin(): Promise<boolean> {
@@ -449,6 +532,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async updateTutorial(arg0: string, arg1: string, arg2: string, arg3: Array<string>, arg4: Array<string>): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.updateTutorial(arg0, arg1, arg2, arg3, arg4);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.updateTutorial(arg0, arg1, arg2, arg3, arg4);
+            return result;
+        }
+    }
 }
 async function from_candid_ExternalBlob_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ExternalBlob): Promise<ExternalBlob> {
     return await _downloadFile(value);
@@ -466,6 +563,9 @@ function from_candid_opt_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
     return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_CrochetPattern]): CrochetPattern | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Tutorial]): Tutorial | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {

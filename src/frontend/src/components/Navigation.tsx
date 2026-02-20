@@ -3,9 +3,9 @@ import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useQueryClient } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProfileSetupModal from './ProfileSetupModal';
-import { useGetCallerUserProfile } from '../hooks/useQueries';
+import { useGetCallerUserProfile, useIsCallerAdmin } from '../hooks/useQueries';
 
 export default function Navigation() {
   const navigate = useNavigate();
@@ -17,8 +17,36 @@ export default function Navigation() {
   const disabled = loginStatus === 'logging-in';
 
   const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
+  const { data: isAdmin, isLoading: isAdminLoading, error: isAdminError, isFetched: isAdminFetched } = useIsCallerAdmin();
 
   const showProfileSetup = isAuthenticated && !profileLoading && isFetched && userProfile === null;
+
+  // Debug logging for identity and admin state
+  useEffect(() => {
+    console.log('[Navigation] Identity state:', {
+      isAuthenticated,
+      identityExists: !!identity,
+      principal: identity?.getPrincipal().toString(),
+    });
+  }, [identity, isAuthenticated]);
+
+  useEffect(() => {
+    console.log('[Navigation] Admin query state:', {
+      isAdmin,
+      isAdminLoading,
+      isAdminFetched,
+      isAdminError,
+      isAuthenticated,
+    });
+  }, [isAdmin, isAdminLoading, isAdminFetched, isAdminError, isAuthenticated]);
+
+  // Force re-evaluation when identity changes
+  useEffect(() => {
+    if (identity) {
+      console.log('[Navigation] Identity changed, invalidating admin query');
+      queryClient.invalidateQueries({ queryKey: ['isAdmin'] });
+    }
+  }, [identity, queryClient]);
 
   const handleAuth = async () => {
     if (isAuthenticated) {
@@ -48,7 +76,22 @@ export default function Navigation() {
           { label: 'Publish', path: '/publish' },
         ]
       : []),
+    ...(isAuthenticated && !isAdminLoading && isAdmin === true ? [{ label: 'Admin', path: '/admin' }] : []),
   ];
+
+  // Debug log for navLinks
+  useEffect(() => {
+    console.log('[Navigation] Nav links computed:', {
+      totalLinks: navLinks.length,
+      hasAdminLink: navLinks.some(link => link.label === 'Admin'),
+      condition: {
+        isAuthenticated,
+        isAdminLoading,
+        isAdmin,
+        shouldShowAdmin: isAuthenticated && !isAdminLoading && isAdmin === true,
+      },
+    });
+  }, [navLinks.length, isAuthenticated, isAdminLoading, isAdmin]);
 
   return (
     <>

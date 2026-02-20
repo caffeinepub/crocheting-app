@@ -1,14 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Add comprehensive SEO enhancements to improve search engine discoverability and social media sharing for the Crochet Craft Hub.
+**Goal:** Fix the Admin navigation link not appearing after Internet Identity login by adding debugging and ensuring proper state synchronization.
 
 **Planned changes:**
-- Add meta tags for title, description, and keywords optimized for crochet content
-- Implement Open Graph tags for rich social media previews on Facebook and LinkedIn
-- Add Twitter Card tags for enhanced Twitter previews
-- Include JSON-LD structured data markup defining the app as a WebApplication
-- Update semantic HTML with proper heading hierarchy and ARIA landmarks across key pages
-- Add canonical link tag to prevent duplicate content issues
+- Add console logging in Navigation component to track isAdmin state, identity state, and re-render behavior
+- Ensure useIsCallerAdmin query runs immediately after authentication state changes
+- Verify backend isCallerAdmin method returns correct values and add logging for caller principal
+- Add explicit dependency on identity state in Navigation component to force re-render on authentication changes
 
-**User-visible outcome:** The app will display rich previews with images and descriptions when shared on social media platforms, and will be more discoverable through search engines with improved SEO metadata.
+**User-visible outcome:** After logging in with Internet Identity, the Admin link appears in the navigation menu without requiring a page refresh.

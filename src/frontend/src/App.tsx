@@ -10,6 +10,9 @@ import ProjectDetailPage from './pages/ProjectDetailPage';
 import PublishProjectPage from './pages/PublishProjectPage';
 import MyProjectsPage from './pages/MyProjectsPage';
 import TrackProjectPage from './pages/TrackProjectPage';
+import AdminPage from './pages/AdminPage';
+import AdminCreatePage from './pages/AdminCreatePage';
+import AdminEditPage from './pages/AdminEditPage';
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -67,6 +70,24 @@ const trackProjectRoute = createRoute({
   component: TrackProjectPage,
 });
 
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin',
+  component: AdminPage,
+});
+
+const adminCreateRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/create',
+  component: AdminCreatePage,
+});
+
+const adminEditRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/edit/$title',
+  component: AdminEditPage,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   tutorialsRoute,
@@ -76,6 +97,9 @@ const routeTree = rootRoute.addChildren([
   publishRoute,
   myProjectsRoute,
   trackProjectRoute,
+  adminRoute,
+  adminCreateRoute,
+  adminEditRoute,
 ]);
 
 const router = createRouter({ routeTree });

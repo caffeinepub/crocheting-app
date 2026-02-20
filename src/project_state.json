@@ -1,14 +1,15 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 13,
   "summary": "Crocheting app with tutorials, project publishing, progress tracking, materials list, and free access (no payment required). Focus on aesthetic design.",
   "architectural_notes": [
     "No payment system or monetization features required - completely free app",
     "SEO optimization with meta tags, Open Graph, Twitter Cards, and structured data for search engine and social media discoverability"
   ],
-  "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Social media preview image showing crochet hooks, yarn, and finished projects in warm craft-inspired aesthetic (og-preview.dim_1200x630.png)",
+  "known_issues": [
+    "Admin navigation link not appearing in the Navigation component after user logs in with Internet Identity"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-tutorials-section-that-displays-crochet-patterns-and-techniques-with-step-by-step-instructions",
@@ -113,6 +114,118 @@
         "REQ-13"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-ensure-the-tutorialspage-displays-the-newly-added-sample-tutorials-in-the-grid-view-showing-each-tutorial-s-title-step-count-and-material-count-in-tutorialcard-components",
+      "title": "Ensure the TutorialsPage displays the newly added sample tutorials in the grid view, showing each tutorial's title, step count, and material count in TutorialCard components.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-tutorialdetailpage-correctly-displays-all-details-for-each-sample-tutorial-including-the-full-materials-list-table-and-numbered-step-by-step-instructions",
+      "title": "Verify that TutorialDetailPage correctly displays all details for each sample tutorial including the full materials list table and numbered step-by-step instructions.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-adminpage-component-at-frontend-src-pages-adminpage-tsx-that-displays-a-list-of-all-tutorials-with-options-to-add-edit-or-delete-each-tutorial",
+      "title": "Create an AdminPage component at frontend/src/pages/AdminPage.tsx that displays a list of all tutorials with options to add, edit, or delete each tutorial",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-tutorialform-component-that-allows-creating-and-editing-tutorials-with-fields-for-title-description-difficulty-level-steps-array-of-text-inputs-and-materials-using-materialsinput-component",
+      "title": "Implement a TutorialForm component that allows creating and editing tutorials with fields for title, description, difficulty level, steps (array of text inputs), and materials (using MaterialsInput component)",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-react-query-mutations-in-frontend-src-hooks-usequeries-ts-for-createtutorial-updatetutorial-and-deletetutorial-that-invalidate-the-tutorials-query-cache-on-success",
+      "title": "Create React Query mutations in frontend/src/hooks/useQueries.ts for createTutorial, updateTutorial, and deleteTutorial that invalidate the tutorials query cache on success",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-admin-navigation-link-in-the-navigation-component-that-is-visible-only-to-authenticated-users-and-routes-to-the-adminpage",
+      "title": "Add an 'Admin' navigation link in the Navigation component that is visible only to authenticated users and routes to the AdminPage",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-the-admin-route-in-frontend-src-app-tsx-to-render-the-adminpage-component",
+      "title": "Configure the /admin route in frontend/src/App.tsx to render the AdminPage component",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-delete-confirmation-dialog-in-adminpage-that-prompts-user-to-confirm-before-deleting-a-tutorial",
+      "title": "Implement delete confirmation dialog in AdminPage that prompts user to confirm before deleting a tutorial",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-debug-and-fix-the-admin-navigation-link-in-the-navigation-component-to-ensure-it-displays-correctly-for-authenticated-users-after-logging-in-with-internet-identity",
+      "title": "Debug and fix the Admin navigation link in the Navigation component to ensure it displays correctly for authenticated users after logging in with Internet Identity",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-the-isadmin-check-in-the-navigation-component-correctly-calls-the-useisadmin-query-hook-and-only-displays-the-admin-link-when-the-user-has-admin-privileges",
+      "title": "Verify that the isAdmin check in the Navigation component correctly calls the useIsAdmin query hook and only displays the Admin link when the user has admin privileges",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-navigation-component-re-renders-when-authentication-state-changes-by-properly-subscribing-to-identity-context-updates-from-internetidentityprovider",
+      "title": "Ensure the Navigation component re-renders when authentication state changes by properly subscribing to identity context updates from InternetIdentityProvider",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-console-log-statements-in-the-navigation-component-to-debug-the-isadmin-state-identity-state-and-re-render-behavior-when-authentication-changes",
+      "title": "Add console.log statements in the Navigation component to debug the isAdmin state, identity state, and re-render behavior when authentication changes",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-useiscalleradmin-query-in-navigation-component-is-enabled-and-runs-immediately-after-authentication-state-changes-from-anonymous-to-authenticated",
+      "title": "Ensure the useIsCallerAdmin query in Navigation component is enabled and runs immediately after authentication state changes from anonymous to authenticated",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-explicit-dependency-on-identity-state-in-the-navigation-component-to-force-re-render-when-authentication-status-changes-from-logged-out-to-logged-in",
+      "title": "Add explicit dependency on identity state in the Navigation component to force re-render when authentication status changes from logged out to logged in",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -150,6 +263,42 @@
       "id": "AR-6",
       "summary": "Add SEO enhancements including meta tags, Open Graph tags, Twitter Cards, and structured data markup",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add sample tutorials with beginner-friendly crochet patterns (granny square, chain stitch, single crochet) including step-by-step instructions, materials lists, and difficulty levels",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add 5 beginner-friendly sample crochet tutorials to the backend with complete data including title, description, difficulty level, step-by-step instructions, and materials lists. Include tutorials for: granny square, chain stitch, single crochet, double crochet, and magic ring.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Build an admin panel to add/edit/delete tutorials through the UI without coding",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add backend methods to main.mo for creating, updating, and deleting tutorials including createTutorial, updateTutorial, and deleteTutorial with appropriate access control",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Verify that the backend isCallerAdmin method in main.mo correctly returns true for the authenticated principal and that the method is being called with the correct identity",
+      "reqIds": [
+        "REQ-29"
+      ],
       "status": "pending"
     }
   ],

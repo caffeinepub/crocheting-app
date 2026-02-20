@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-meta-tags-to-frontend-index-html-including-title-description-and-keywords-optimized-for-crochet-tutorials-project-sharing-and-crafting-community",
-      "featureTitle": "Add meta tags to frontend/index.html including title, description, and keywords optimized for crochet tutorials, project sharing, and crafting community",
+      "featureId": "feature-add-console-log-statements-in-the-navigation-component-to-debug-the-isadmin-state-identity-state-and-re-render-behavior-when-authentication-changes",
+      "featureTitle": "Add console.log statements in the Navigation component to debug the isAdmin state, identity state, and re-render behavior when authentication changes",
       "files": [
-        "frontend/index.html"
+        "frontend/src/components/Navigation.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,15 +17,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-8"
+        "REQ-27"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-open-graph-meta-tags-in-frontend-index-html-for-rich-social-media-previews-on-facebook-and-linkedin-including-og-title-og-description-og-image-og-url-and-og-type",
-      "featureTitle": "Implement Open Graph meta tags in frontend/index.html for rich social media previews on Facebook and LinkedIn, including og:title, og:description, og:image, og:url, and og:type",
+      "featureId": "feature-ensure-the-useiscalleradmin-query-in-navigation-component-is-enabled-and-runs-immediately-after-authentication-state-changes-from-anonymous-to-authenticated",
+      "featureTitle": "Ensure the useIsCallerAdmin query in Navigation component is enabled and runs immediately after authentication state changes from anonymous to authenticated",
       "files": [
-        "frontend/index.html"
+        "frontend/src/components/Navigation.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -37,15 +37,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-9"
+        "REQ-28"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-twitter-card-meta-tags-in-frontend-index-html-including-twitter-card-twitter-title-twitter-description-and-twitter-image-for-enhanced-twitter-previews",
-      "featureTitle": "Add Twitter Card meta tags in frontend/index.html including twitter:card, twitter:title, twitter:description, and twitter:image for enhanced Twitter previews",
+      "featureId": "feature-add-explicit-dependency-on-identity-state-in-the-navigation-component-to-force-re-render-when-authentication-status-changes-from-logged-out-to-logged-in",
+      "featureTitle": "Add explicit dependency on identity state in the Navigation component to force re-render when authentication status changes from logged out to logged in",
       "files": [
-        "frontend/index.html"
+        "frontend/src/components/Navigation.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -57,69 +57,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-10"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-json-ld-structured-data-markup-to-frontend-index-html-defining-the-app-as-a-webapplication-with-schema-org-vocabulary-including-name-description-applicationcategory-and-offers-properties",
-      "featureTitle": "Add JSON-LD structured data markup to frontend/index.html defining the app as a WebApplication with schema.org vocabulary, including name, description, applicationCategory, and offers properties",
-      "files": [
-        "frontend/index.html"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-11"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-semantic-html-elements-across-key-pages-homepage-tutorialspage-projectsgallerypage-to-use-proper-heading-hierarchy-h1-h2-h3-and-aria-landmarks-for-improved-accessibility-and-seo",
-      "featureTitle": "Update semantic HTML elements across key pages (HomePage, TutorialsPage, ProjectsGalleryPage) to use proper heading hierarchy (h1, h2, h3) and ARIA landmarks for improved accessibility and SEO",
-      "files": [
-        "frontend/src/pages/HomePage.tsx",
-        "frontend/src/pages/ProjectsGalleryPage.tsx",
-        "frontend/src/pages/TutorialsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-12"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-canonical-link-tag-in-frontend-index-html-to-prevent-duplicate-content-issues-when-the-app-is-accessible-via-multiple-urls",
-      "featureTitle": "Add a canonical link tag in frontend/index.html to prevent duplicate content issues when the app is accessible via multiple URLs",
-      "files": [
-        "frontend/index.html"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-13"
+        "REQ-30"
       ],
       "confidence": "high"
     }

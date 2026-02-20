@@ -1,16 +1,15 @@
 import { useParams, useNavigate } from '@tanstack/react-router';
-import { useGetPattern } from '../hooks/useQueries';
+import { useGetTutorial } from '../hooks/useQueries';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
-import MaterialsList from '../components/MaterialsList';
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, CheckCircle2, Package } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function TutorialDetailPage() {
   const { name } = useParams({ strict: false });
   const navigate = useNavigate();
-  const { data: pattern, isLoading } = useGetPattern(name || '');
+  const { data: tutorial, isLoading } = useGetTutorial(name || '');
 
   if (isLoading) {
     return (
@@ -22,7 +21,7 @@ export default function TutorialDetailPage() {
     );
   }
 
-  if (!pattern) {
+  if (!tutorial) {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
         <h1 className="font-serif text-3xl font-bold mb-4">Tutorial Not Found</h1>
@@ -32,21 +31,44 @@ export default function TutorialDetailPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <main className="container mx-auto px-4 py-8 max-w-4xl">
       <Button variant="ghost" onClick={() => navigate({ to: '/tutorials' })} className="mb-6">
         <ArrowLeft className="w-4 h-4 mr-2" />
         Back to Tutorials
       </Button>
 
-      <div className="space-y-8">
-        <div>
-          <h1 className="font-serif text-4xl font-bold text-foreground mb-2">{pattern.name}</h1>
-          <p className="text-muted-foreground">
-            {pattern.pattern_steps.length} steps • {pattern.materials_needed.length} materials needed
+      <article className="space-y-8">
+        <header>
+          <div className="flex items-center gap-3 mb-3">
+            <h1 className="font-serif text-4xl font-bold text-foreground">{tutorial.title}</h1>
+            <Badge variant="secondary" className="text-sm">
+              {tutorial.difficulty}
+            </Badge>
+          </div>
+          <p className="text-lg text-muted-foreground mb-4">{tutorial.description}</p>
+          <p className="text-sm text-muted-foreground">
+            {tutorial.steps.length} steps • {tutorial.materials.length} materials needed
           </p>
-        </div>
+        </header>
 
-        <MaterialsList materials={pattern.materials_needed} />
+        <Card>
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <Package className="w-8 h-8 text-primary" />
+              <CardTitle className="font-serif text-2xl">Materials Needed</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2">
+              {tutorial.materials.map((material, index) => (
+                <li key={index} className="flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
+                  <span className="text-foreground">{material}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
 
         <Card>
           <CardHeader>
@@ -61,7 +83,7 @@ export default function TutorialDetailPage() {
           </CardHeader>
           <CardContent>
             <ol className="space-y-4">
-              {pattern.pattern_steps.map((step, index) => (
+              {tutorial.steps.map((step, index) => (
                 <li key={index} className="flex gap-4">
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">
                     {index + 1}
@@ -88,7 +110,7 @@ export default function TutorialDetailPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
-    </div>
+      </article>
+    </main>
   );
 }

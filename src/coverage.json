@@ -1,98 +1,64 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-20T11:26:39.539Z",
+  "generatedAt": "2026-02-20T13:18:36.035Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 6,
-    "implemented": 6,
+    "total": 4,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-10",
-        "summary": "Add Twitter Card meta tags in frontend/index.html including twitter:card, twitter:title, twitter:description, and twitter:image for enhanced Twitter previews",
+        "id": "REQ-27",
+        "summary": "Add console.log statements in the Navigation component to debug the isAdmin state, identity state, and re-render behavior when authentication changes",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/Navigation.tsx"
         ],
         "matchedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/Navigation.tsx"
         ]
       },
       {
-        "id": "REQ-11",
-        "summary": "Add JSON-LD structured data markup to frontend/index.html defining the app as a WebApplication with schema.org vocabulary, including name, description, applicationCategory, and offers properties",
+        "id": "REQ-28",
+        "summary": "Ensure the useIsCallerAdmin query in Navigation component is enabled and runs immediately after authentication state changes from anonymous to authenticated",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/Navigation.tsx"
         ],
         "matchedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/Navigation.tsx"
         ]
       },
       {
-        "id": "REQ-12",
-        "summary": "Update semantic HTML elements across key pages (HomePage, TutorialsPage, ProjectsGalleryPage) to use proper heading hierarchy (h1, h2, h3) and ARIA landmarks for improved accessibility and SEO",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/pages/TutorialsPage.tsx",
-          "frontend/src/pages/ProjectsGalleryPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/HomePage.tsx",
-          "frontend/src/pages/TutorialsPage.tsx",
-          "frontend/src/pages/ProjectsGalleryPage.tsx"
-        ]
+        "id": "REQ-29",
+        "summary": "Verify that the backend isCallerAdmin method in main.mo correctly returns true for the authenticated principal and that the method is being called with the correct identity",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
       },
       {
-        "id": "REQ-13",
-        "summary": "Add a canonical link tag in frontend/index.html to prevent duplicate content issues when the app is accessible via multiple URLs",
+        "id": "REQ-30",
+        "summary": "Add explicit dependency on identity state in the Navigation component to force re-render when authentication status changes from logged out to logged in",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/Navigation.tsx"
         ],
         "matchedFiles": [
-          "frontend/index.html"
-        ]
-      },
-      {
-        "id": "REQ-8",
-        "summary": "Add meta tags to frontend/index.html including title, description, and keywords optimized for crochet tutorials, project sharing, and crafting community",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/index.html"
-        ],
-        "matchedFiles": [
-          "frontend/index.html"
-        ]
-      },
-      {
-        "id": "REQ-9",
-        "summary": "Implement Open Graph meta tags in frontend/index.html for rich social media previews on Facebook and LinkedIn, including og:title, og:description, og:image, og:url, and og:type",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/index.html"
-        ],
-        "matchedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/Navigation.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/public/assets/generated/og-preview.dim_1200x630.png",
-    "frontend/src/pages/HomePage.tsx",
-    "frontend/src/pages/ProjectsGalleryPage.tsx",
-    "frontend/src/pages/TutorialsPage.tsx",
+    "frontend/src/components/Navigation.tsx",
+    "frontend/src/hooks/useQueries.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

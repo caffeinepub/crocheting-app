@@ -38,6 +38,13 @@ export interface UserProfile {
     bio: string;
     name: string;
 }
+export interface Tutorial {
+    title: string;
+    difficulty: string;
+    description: string;
+    steps: Array<string>;
+    materials: Array<string>;
+}
 export enum UserRole {
     admin = "admin",
     user = "user",
@@ -47,15 +54,21 @@ export interface backendInterface {
     addPattern(name: string, steps: Array<string>, materials: Array<Material>): Promise<void>;
     addProject(title: string, description: string, instructions: string, images: Array<ExternalBlob>, materials: Array<Material>): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    createTutorial(title: string, description: string, difficulty: string, steps: Array<string>, materials: Array<string>): Promise<void>;
+    deleteTutorial(title: string): Promise<void>;
     getAllProjects(): Promise<Array<Project>>;
+    getAllTutorials(): Promise<Array<Tutorial>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
     getPattern(name: string): Promise<CrochetPattern | null>;
     getPatterns(): Promise<Array<CrochetPattern>>;
     getProjectMaterials(title: string): Promise<Array<Material>>;
     getProjects(userId: Principal): Promise<Array<Project>>;
+    getTutorial(title: string): Promise<Tutorial | null>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
+    initializeDefaultTutorials(): Promise<void>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     updateProject(title: string, images: Array<ExternalBlob>, completion_percentage: bigint, time_spent_minutes: bigint): Promise<void>;
+    updateTutorial(title: string, description: string, difficulty: string, steps: Array<string>, materials: Array<string>): Promise<void>;
 }

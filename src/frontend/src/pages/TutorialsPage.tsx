@@ -1,10 +1,10 @@
-import { useGetPatterns } from '../hooks/useQueries';
+import { useGetTutorials } from '../hooks/useQueries';
 import TutorialCard from '../components/TutorialCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { BookOpen } from 'lucide-react';
 
 export default function TutorialsPage() {
-  const { data: patterns, isLoading } = useGetPatterns();
+  const { data: tutorials, isLoading } = useGetTutorials();
 
   return (
     <main className="container mx-auto px-4 py-8">
@@ -22,11 +22,11 @@ export default function TutorialsPage() {
             <Skeleton key={i} className="h-48 rounded-lg" />
           ))}
         </section>
-      ) : patterns && patterns.length > 0 ? (
+      ) : tutorials && tutorials.length > 0 ? (
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {patterns.map((pattern) => (
-            <article key={pattern.name}>
-              <TutorialCard pattern={pattern} />
+          {tutorials.map((tutorial) => (
+            <article key={tutorial.title}>
+              <TutorialCard tutorial={tutorial} />
             </article>
           ))}
         </section>

@@ -31,6 +31,13 @@ export interface Project {
   'materials' : Array<Material>,
   'images' : Array<ExternalBlob>,
 }
+export interface Tutorial {
+  'title' : string,
+  'difficulty' : string,
+  'description' : string,
+  'steps' : Array<string>,
+  'materials' : Array<string>,
+}
 export interface UserProfile { 'bio' : string, 'name' : string }
 export type UserRole = { 'admin' : null } |
   { 'user' : null } |
@@ -72,18 +79,30 @@ export interface _SERVICE {
     undefined
   >,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'createTutorial' : ActorMethod<
+    [string, string, string, Array<string>, Array<string>],
+    undefined
+  >,
+  'deleteTutorial' : ActorMethod<[string], undefined>,
   'getAllProjects' : ActorMethod<[], Array<Project>>,
+  'getAllTutorials' : ActorMethod<[], Array<Tutorial>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getPattern' : ActorMethod<[string], [] | [CrochetPattern]>,
   'getPatterns' : ActorMethod<[], Array<CrochetPattern>>,
   'getProjectMaterials' : ActorMethod<[string], Array<Material>>,
   'getProjects' : ActorMethod<[Principal], Array<Project>>,
+  'getTutorial' : ActorMethod<[string], [] | [Tutorial]>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'initializeDefaultTutorials' : ActorMethod<[], undefined>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'updateProject' : ActorMethod<
     [string, Array<ExternalBlob>, bigint, bigint],
+    undefined
+  >,
+  'updateTutorial' : ActorMethod<
+    [string, string, string, Array<string>, Array<string>],
     undefined
   >,
 }

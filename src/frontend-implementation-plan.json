@@ -1,111 +1,56 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add comprehensive SEO enhancements for search engine discoverability",
+  "title": "Fix Admin navigation link visibility after Internet Identity login",
   "requirements": [
     {
-      "id": "REQ-8",
-      "summary": "Add meta tags to frontend/index.html for search engine optimization with crochet-specific keywords",
+      "id": "REQ-27",
+      "summary": "Add debug console logging to Navigation component for identity and admin state tracking",
       "acceptanceCriteria": [
-        "HTML head contains descriptive meta title tag",
-        "Meta description tag accurately describes the app's core features",
-        "Meta keywords tag includes relevant crochet and crafting terms"
+        "Console logs display current identity state in Navigation component",
+        "Console logs display isAdmin query result and loading state",
+        "Console logs trigger on component mount and when identity changes",
+        "Logs help identify whether the issue is with the query not running, query returning wrong value, or component not re-rendering"
       ],
       "file_operations": [
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Add meta title, description, and keywords tags optimized for 'Crochet Craft Hub' featuring crochet tutorials, project sharing, progress tracking, and crafting community. Include keywords such as 'crochet patterns', 'crochet tutorials', 'craft projects', 'yarn crafts', 'handmade', 'DIY crochet', 'crochet community', 'project tracking', and 'materials guide'."
+          "description": "Add console.log statements to track identity state from useInternetIdentity, isAdmin query status (loading, data, error), and component re-render triggers. Include logs in useEffect hooks that monitor identity changes and in the render path to show when the component evaluates the admin link visibility condition."
         }
       ]
     },
     {
-      "id": "REQ-9",
-      "summary": "Implement Open Graph meta tags in frontend/index.html for rich social media previews on Facebook and LinkedIn",
+      "id": "REQ-28",
+      "summary": "Ensure useIsCallerAdmin query executes immediately after authentication state changes",
       "acceptanceCriteria": [
-        "All required Open Graph tags are present in HTML head",
-        "og:image points to a suitable preview image for the crocheting app",
-        "Social media platforms display rich previews when the app URL is shared"
+        "useIsCallerAdmin query executes automatically when identity state updates",
+        "Query is not disabled or blocked by stale actor instance",
+        "Navigation component has access to updated actor from useActor hook",
+        "Query refetches when actor instance changes"
       ],
       "file_operations": [
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Add Open Graph meta tags including og:title (Crochet Craft Hub), og:description (describing tutorials, project sharing, and community features), og:type (website), og:url (canonical app URL), and og:image pointing to the generated social preview image at frontend/public/assets/generated/og-preview.dim_1200x630.png. Ensure the image path uses the workspace location with dimension suffix."
+          "description": "Verify the useIsCallerAdmin hook is properly enabled based on actor availability and authentication state. Add explicit dependencies on identity state to trigger query refetch when authentication changes from anonymous to authenticated. Ensure the query is not disabled during the authentication transition."
         }
       ]
     },
     {
-      "id": "REQ-10",
-      "summary": "Add Twitter Card meta tags in frontend/index.html for enhanced Twitter previews",
+      "id": "REQ-30",
+      "summary": "Add explicit identity dependency to force Navigation re-render on authentication change",
       "acceptanceCriteria": [
-        "Twitter Card tags are properly formatted in HTML head",
-        "Card type is set to summary_large_image for visual appeal",
-        "Twitter displays preview card when app URL is shared"
+        "Navigation component uses identity from useInternetIdentity hook as a dependency",
+        "Component re-renders when identity changes from null to defined",
+        "isAdmin check runs with fresh data after authentication",
+        "Admin link appears in navigation menu after successful login"
       ],
       "file_operations": [
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Add Twitter Card meta tags including twitter:card (summary_large_image), twitter:title (Crochet Craft Hub), twitter:description (describing app features), and twitter:image pointing to the generated social preview image at frontend/public/assets/generated/og-preview.dim_1200x630.png. Use the same image as Open Graph for consistency."
-        }
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "summary": "Add JSON-LD structured data markup to frontend/index.html defining the app as a WebApplication",
-      "acceptanceCriteria": [
-        "Valid JSON-LD script tag is present in HTML",
-        "Schema type is set to WebApplication",
-        "Structured data validates using Google's Rich Results Test",
-        "Free access is clearly indicated in the offers property"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Add a JSON-LD script tag with schema.org WebApplication vocabulary including @type: 'WebApplication', name: 'Crochet Craft Hub', description (comprehensive feature description), applicationCategory: 'LifestyleApplication', and offers property with @type: 'Offer', price: '0', priceCurrency: 'USD' to indicate free access. Include url property pointing to the canonical app URL."
-        }
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "summary": "Update semantic HTML elements across key pages to use proper heading hierarchy and ARIA landmarks",
-      "acceptanceCriteria": [
-        "Each page has exactly one h1 tag representing the main heading",
-        "Heading hierarchy follows logical order without skipping levels",
-        "Main content areas use appropriate semantic HTML5 elements (main, article, section, nav)"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/HomePage.tsx",
-          "operation": "modify",
-          "description": "Ensure the page has exactly one h1 tag for the main heading (e.g., 'Welcome to Crochet Craft Hub'), wrap the main content in a <main> element, use <section> elements for feature cards area, and ensure heading hierarchy progresses logically (h1 → h2 → h3) without skipping levels. Verify that semantic HTML5 elements are used appropriately."
-        },
-        {
-          "path": "frontend/src/pages/TutorialsPage.tsx",
-          "operation": "modify",
-          "description": "Add an h1 tag as the main page heading (e.g., 'Crochet Tutorials & Patterns'), wrap the tutorials grid in a <main> element, and ensure any subsection headings use h2 tags. Verify proper semantic structure with article or section elements for tutorial listings."
-        },
-        {
-          "path": "frontend/src/pages/ProjectsGalleryPage.tsx",
-          "operation": "modify",
-          "description": "Add an h1 tag as the main page heading (e.g., 'Community Projects Gallery'), wrap the projects grid in a <main> element, and ensure the heading hierarchy is logical. Use semantic HTML5 elements (section, article) to structure the project gallery content."
-        }
-      ]
-    },
-    {
-      "id": "REQ-13",
-      "summary": "Add a canonical link tag in frontend/index.html to prevent duplicate content issues",
-      "acceptanceCriteria": [
-        "Canonical link tag is present in HTML head",
-        "Tag points to the primary app URL"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Add a canonical link tag in the HTML head section with rel='canonical' and href pointing to the primary production URL of the Crochet Craft Hub application to prevent duplicate content issues when the app is accessible via multiple URLs."
+          "description": "Add useEffect hook with identity as a dependency to explicitly track authentication state changes. When identity transitions from null/undefined to a valid identity object, trigger a re-evaluation of the isAdmin state. Ensure the admin navigation link visibility condition properly accounts for both the isAuthenticated state and the isAdmin query result, re-rendering when either value changes."
         }
       ]
     }

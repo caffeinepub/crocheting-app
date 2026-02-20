@@ -40,6 +40,13 @@ export const Project = IDL.Record({
   'materials' : IDL.Vec(Material),
   'images' : IDL.Vec(ExternalBlob),
 });
+export const Tutorial = IDL.Record({
+  'title' : IDL.Text,
+  'difficulty' : IDL.Text,
+  'description' : IDL.Text,
+  'steps' : IDL.Vec(IDL.Text),
+  'materials' : IDL.Vec(IDL.Text),
+});
 export const UserProfile = IDL.Record({ 'bio' : IDL.Text, 'name' : IDL.Text });
 export const CrochetPattern = IDL.Record({
   'pattern_steps' : IDL.Vec(IDL.Text),
@@ -86,22 +93,36 @@ export const idlService = IDL.Service({
       [],
     ),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'createTutorial' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Vec(IDL.Text), IDL.Vec(IDL.Text)],
+      [],
+      [],
+    ),
+  'deleteTutorial' : IDL.Func([IDL.Text], [], []),
   'getAllProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
+  'getAllTutorials' : IDL.Func([], [IDL.Vec(Tutorial)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getPattern' : IDL.Func([IDL.Text], [IDL.Opt(CrochetPattern)], ['query']),
   'getPatterns' : IDL.Func([], [IDL.Vec(CrochetPattern)], ['query']),
   'getProjectMaterials' : IDL.Func([IDL.Text], [IDL.Vec(Material)], ['query']),
   'getProjects' : IDL.Func([IDL.Principal], [IDL.Vec(Project)], ['query']),
+  'getTutorial' : IDL.Func([IDL.Text], [IDL.Opt(Tutorial)], ['query']),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
       ['query'],
     ),
+  'initializeDefaultTutorials' : IDL.Func([], [], []),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'updateProject' : IDL.Func(
       [IDL.Text, IDL.Vec(ExternalBlob), IDL.Nat, IDL.Nat],
+      [],
+      [],
+    ),
+  'updateTutorial' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Vec(IDL.Text), IDL.Vec(IDL.Text)],
       [],
       [],
     ),
@@ -141,6 +162,13 @@ export const idlFactory = ({ IDL }) => {
     'time_spent_minutes' : IDL.Nat,
     'materials' : IDL.Vec(Material),
     'images' : IDL.Vec(ExternalBlob),
+  });
+  const Tutorial = IDL.Record({
+    'title' : IDL.Text,
+    'difficulty' : IDL.Text,
+    'description' : IDL.Text,
+    'steps' : IDL.Vec(IDL.Text),
+    'materials' : IDL.Vec(IDL.Text),
   });
   const UserProfile = IDL.Record({ 'bio' : IDL.Text, 'name' : IDL.Text });
   const CrochetPattern = IDL.Record({
@@ -194,7 +222,14 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'createTutorial' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Vec(IDL.Text), IDL.Vec(IDL.Text)],
+        [],
+        [],
+      ),
+    'deleteTutorial' : IDL.Func([IDL.Text], [], []),
     'getAllProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
+    'getAllTutorials' : IDL.Func([], [IDL.Vec(Tutorial)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getPattern' : IDL.Func([IDL.Text], [IDL.Opt(CrochetPattern)], ['query']),
@@ -205,15 +240,22 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'getProjects' : IDL.Func([IDL.Principal], [IDL.Vec(Project)], ['query']),
+    'getTutorial' : IDL.Func([IDL.Text], [IDL.Opt(Tutorial)], ['query']),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
         ['query'],
       ),
+    'initializeDefaultTutorials' : IDL.Func([], [], []),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'updateProject' : IDL.Func(
         [IDL.Text, IDL.Vec(ExternalBlob), IDL.Nat, IDL.Nat],
+        [],
+        [],
+      ),
+    'updateTutorial' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Vec(IDL.Text), IDL.Vec(IDL.Text)],
         [],
         [],
       ),
