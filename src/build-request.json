@@ -1,0 +1,133 @@
+{
+  "kind": "build_request",
+  "title": "Add comprehensive SEO enhancements for search engine discoverability",
+  "projectName": "Crochet Craft Hub",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-8",
+      "text": "Add meta tags to frontend/index.html including title, description, and keywords optimized for crochet tutorials, project sharing, and crafting community",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-yes",
+          "msg-assistant-seo-features"
+        ],
+        "quotes": [
+          "Meta tags for search engines (title, description, keywords)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "HTML head contains descriptive meta title tag",
+        "Meta description tag accurately describes the app's core features",
+        "Meta keywords tag includes relevant crochet and crafting terms"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Implement Open Graph meta tags in frontend/index.html for rich social media previews on Facebook and LinkedIn, including og:title, og:description, og:image, og:url, and og:type",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-assistant-seo-features"
+        ],
+        "quotes": [
+          "Open Graph tags for social media sharing (Facebook, LinkedIn)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All required Open Graph tags are present in HTML head",
+        "og:image points to a suitable preview image for the crocheting app",
+        "Social media platforms display rich previews when the app URL is shared"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Add Twitter Card meta tags in frontend/index.html including twitter:card, twitter:title, twitter:description, and twitter:image for enhanced Twitter previews",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-assistant-seo-features"
+        ],
+        "quotes": [
+          "Twitter Card tags for Twitter previews"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Twitter Card tags are properly formatted in HTML head",
+        "Card type is set to summary_large_image for visual appeal",
+        "Twitter displays preview card when app URL is shared"
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Add JSON-LD structured data markup to frontend/index.html defining the app as a WebApplication with schema.org vocabulary, including name, description, applicationCategory, and offers properties",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-assistant-seo-features"
+        ],
+        "quotes": [
+          "Structured data markup for better Google understanding"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Valid JSON-LD script tag is present in HTML",
+        "Schema type is set to WebApplication",
+        "Structured data validates using Google's Rich Results Test",
+        "Free access is clearly indicated in the offers property"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Update semantic HTML elements across key pages (HomePage, TutorialsPage, ProjectsGalleryPage) to use proper heading hierarchy (h1, h2, h3) and ARIA landmarks for improved accessibility and SEO",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-assistant-seo-features"
+        ],
+        "quotes": [
+          "Semantic HTML improvements"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each page has exactly one h1 tag representing the main heading",
+        "Heading hierarchy follows logical order without skipping levels",
+        "Main content areas use appropriate semantic HTML5 elements (main, article, section, nav)"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Add a canonical link tag in frontend/index.html to prevent duplicate content issues when the app is accessible via multiple URLs",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-assistant-seo-features"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Canonical link tag is present in HTML head",
+        "Tag points to the primary app URL"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui",
+    "Maintain the existing warm craft-inspired visual theme and design consistency",
+    "Keep all app features free and accessible without payment requirements"
+  ],
+  "nonGoals": [
+    "Setting up custom domain configuration (user responsibility)",
+    "Implementing sitemap.xml generation",
+    "Adding robots.txt file",
+    "Creating Google Search Console integration",
+    "Building analytics tracking",
+    "Implementing server-side rendering for SEO"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Social media preview image showing crochet hooks, yarn, and finished projects in warm craft-inspired aesthetic (og-preview.dim_1200x630.png)"
+    ],
+    "edits": []
+  }
+}

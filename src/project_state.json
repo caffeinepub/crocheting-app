@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Crocheting app with tutorials, project publishing, progress tracking, materials list, and free access (no payment required). Focus on aesthetic design.",
+  "architectural_notes": [
+    "No payment system or monetization features required - completely free app",
+    "SEO optimization with meta tags, Open Graph, Twitter Cards, and structured data for search engine and social media discoverability"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Social media preview image showing crochet hooks, yarn, and finished projects in warm craft-inspired aesthetic (og-preview.dim_1200x630.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-tutorials-section-that-displays-crochet-patterns-and-techniques-with-step-by-step-instructions",
+      "title": "Create a tutorials section that displays crochet patterns and techniques with step-by-step instructions",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-functionality-for-users-to-publish-their-completed-crochet-projects-with-photos-and-descriptions",
+      "title": "Implement functionality for users to publish their completed crochet projects with photos and descriptions",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-an-active-tracking-system-that-allows-users-to-monitor-progress-on-their-current-crochet-items-including-completion-percentage-and-time-spent",
+      "title": "Build an active tracking system that allows users to monitor progress on their current crochet items, including completion percentage and time spent",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-materials-list-feature-that-displays-the-supplies-needed-for-each-tutorial-or-project-including-yarn-type-hook-size-and-additional-materials",
+      "title": "Create a materials list feature that displays the supplies needed for each tutorial or project, including yarn type, hook size, and additional materials",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-all-app-features-are-accessible-without-payment-or-subscription-requirements",
+      "title": "Ensure all app features are accessible without payment or subscription requirements",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-a-visually-cohesive-and-aesthetic-user-interface-with-a-warm-craft-inspired-visual-theme-featuring-earthy-tones-soft-textures-and-elegant-typography-that-evokes-the-handmade-nature-of-crochet",
+      "title": "Design a visually cohesive and aesthetic user interface with a warm, craft-inspired visual theme featuring earthy tones, soft textures, and elegant typography that evokes the handmade nature of crochet",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-generated-images-as-static-assets-in-frontend-public-assets-generated-for-hero-sections-tutorial-illustrations-and-decorative-elements",
+      "title": "Render generated images as static assets in frontend/public/assets/generated for hero sections, tutorial illustrations, and decorative elements",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-meta-tags-to-frontend-index-html-including-title-description-and-keywords-optimized-for-crochet-tutorials-project-sharing-and-crafting-community",
+      "title": "Add meta tags to frontend/index.html including title, description, and keywords optimized for crochet tutorials, project sharing, and crafting community",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-open-graph-meta-tags-in-frontend-index-html-for-rich-social-media-previews-on-facebook-and-linkedin-including-og-title-og-description-og-image-og-url-and-og-type",
+      "title": "Implement Open Graph meta tags in frontend/index.html for rich social media previews on Facebook and LinkedIn, including og:title, og:description, og:image, og:url, and og:type",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-twitter-card-meta-tags-in-frontend-index-html-including-twitter-card-twitter-title-twitter-description-and-twitter-image-for-enhanced-twitter-previews",
+      "title": "Add Twitter Card meta tags in frontend/index.html including twitter:card, twitter:title, twitter:description, and twitter:image for enhanced Twitter previews",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-json-ld-structured-data-markup-to-frontend-index-html-defining-the-app-as-a-webapplication-with-schema-org-vocabulary-including-name-description-applicationcategory-and-offers-properties",
+      "title": "Add JSON-LD structured data markup to frontend/index.html defining the app as a WebApplication with schema.org vocabulary, including name, description, applicationCategory, and offers properties",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-semantic-html-elements-across-key-pages-homepage-tutorialspage-projectsgallerypage-to-use-proper-heading-hierarchy-h1-h2-h3-and-aria-landmarks-for-improved-accessibility-and-seo",
+      "title": "Update semantic HTML elements across key pages (HomePage, TutorialsPage, ProjectsGalleryPage) to use proper heading hierarchy (h1, h2, h3) and ARIA landmarks for improved accessibility and SEO",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-canonical-link-tag-in-frontend-index-html-to-prevent-duplicate-content-issues-when-the-app-is-accessible-via-multiple-urls",
+      "title": "Add a canonical link tag in frontend/index.html to prevent duplicate content issues when the app is accessible via multiple URLs",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Tutorials section for crochet patterns and techniques",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Ability to publish completed crochet projects",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Active progress tracking for crochet items in progress",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Materials list feature showing needed supplies for each project",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Aesthetic UI design throughout the app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add SEO enhancements including meta tags, Open Graph tags, Twitter Cards, and structured data markup",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Crocheting App",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
